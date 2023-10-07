@@ -1,6 +1,7 @@
 import sys
-
 import pygame
+
+from settings import Settings
 
 class SpaceInvaders:
     """ 
@@ -14,15 +15,15 @@ class SpaceInvaders:
         # Initialize Pygame background settings
         pygame.init()
         
+        # Instantiate Space Invadeers game settings
+        self.settings = Settings()
+        
         # Set display window. Assign Pygame surface to self.screen
-        self.screen = pygame.display.set_mode((1920, 1080))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Space Invaders")
         
         # Instantiate Pygame clock to maintain frame rate
         self.clock = pygame.time.Clock()
-        
-        # Set background color to gray
-        self.bg_color = (230, 230, 230)
         
     def run_game(self):
         """
@@ -32,11 +33,11 @@ class SpaceInvaders:
         while True:
             # Track user actions (event) with event for loop
             for event in pygame.event.get():  # list of events
-                if event.type == event.QUIT:
+                if event.type == pygame.QUIT:
                     sys.exit()
             
             # Redraw screen each pass of event loop
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
             
             # Makes most recently drawn screen visible, hides old screens
             pygame.display.flip()
