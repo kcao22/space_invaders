@@ -17,8 +17,12 @@ class SpaceInvaders:
         # Set display window. Assign Pygame surface to self.screen
         self.screen = pygame.display.set_mode((1920, 1080))
         pygame.display.set_caption("Space Invaders")
+        
         # Instantiate Pygame clock to maintain frame rate
         self.clock = pygame.time.Clock()
+        
+        # Set background color to gray
+        self.bg_color = (230, 230, 230)
         
     def run_game(self):
         """
@@ -30,6 +34,9 @@ class SpaceInvaders:
             for event in pygame.event.get():  # list of events
                 if event.type == event.QUIT:
                     sys.exit()
+            
+            # Redraw screen each pass of event loop
+            self.screen.fill(self.bg_color)
             
             # Makes most recently drawn screen visible, hides old screens
             pygame.display.flip()
