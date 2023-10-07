@@ -17,6 +17,8 @@ class SpaceInvaders:
         # Set display window. Assign Pygame surface to self.screen
         self.screen = pygame.display.set_mode((1920, 1080))
         pygame.display.set_caption("Space Invaders")
+        # Instantiate Pygame clock to maintain frame rate
+        self.clock = pygame.time.Clock()
         
     def run_game(self):
         """
@@ -31,6 +33,8 @@ class SpaceInvaders:
             
             # Makes most recently drawn screen visible, hides old screens
             pygame.display.flip()
+            # Set game frame rate
+            self.clock.tick(60)
     
 # Checks if file is called directly or not (ex of not: import as module)
 # If run as main program, execute code block
