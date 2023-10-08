@@ -35,8 +35,9 @@ class SpaceInvaders:
         updating screen on each pass.
         """
         while True:
-            # Check game events for quit action.
+            # Check game events and respond accordingly to event.
             self._check_events()
+            self.ship.update()
             
             # Update screen on each pass of loop
             self._update_screen()
@@ -50,9 +51,21 @@ class SpaceInvaders:
         """
         # Track user actions (event) with event for loop
         for event in pygame.event.get():  # list of events
+            # If user quits, exit game
             if event.type == pygame.QUIT:
                 sys.exit()
-
+            # If keypress action, respond accordingly
+            # Allow for continuous action by tracking keydown & keyup
+            elif event.type == pygame.KEYDOWN:
+                # If right arrow key, shift ship rectangle 1 unit right
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+            
+                
+        
     def _update_screen(self):
         """
         Updates images on the screen and flips to new screen.

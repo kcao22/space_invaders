@@ -22,9 +22,29 @@ class Ship:
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
         
+        # Flag for continuous movements. If True, continuously += 1 pos.
+        self.moving_right = False
+        self.moving_left = False
+        self.moving_up = False
+        self.moving_down = False
+        
     def blitme(self):
         """
         Draws ship at current location.
         """
         # Draws image to game screen at specified position by self.rect.
         self.screen.blit(self.image, self.rect)
+        
+    def update(self):
+        """
+        Checks if continuous movement flag. Update position accordingly.
+        """
+        # If moving_right, iterate ship rectangle position to right once.
+        if self.moving_right:
+            self.rect.x += 1
+        if self.moving_left:
+            self.rect.y += 1
+        if self.moving_up:
+            self.rect.top += 1
+        if self.moving_down:
+            self.rect.bottom += 1
