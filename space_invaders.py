@@ -2,6 +2,7 @@ import sys
 import pygame
 
 from settings import Settings
+from ship import Ship
 
 class SpaceInvaders:
     """ 
@@ -15,7 +16,7 @@ class SpaceInvaders:
         # Initialize Pygame background settings
         pygame.init()
         
-        # Instantiate Space Invadeers game settings
+        # Instantiate Space Invaders game settings
         self.settings = Settings()
         
         # Set display window. Assign Pygame surface to self.screen
@@ -24,6 +25,9 @@ class SpaceInvaders:
         
         # Instantiate Pygame clock to maintain frame rate
         self.clock = pygame.time.Clock()
+        
+        # Instantiate ship, pass in SpaceInvaders instance as argument.
+        self.ship = Ship(self)        
         
     def run_game(self):
         """
@@ -39,8 +43,12 @@ class SpaceInvaders:
             # Redraw screen each pass of event loop
             self.screen.fill(self.settings.bg_color)
             
+            # Draw ship on top of background after background is ready
+            self.ship.blitme()
+            
             # Makes most recently drawn screen visible, hides old screens
             pygame.display.flip()
+            
             # Set game frame rate
             self.clock.tick(60)
     
