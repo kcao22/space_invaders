@@ -35,22 +35,37 @@ class SpaceInvaders:
         updating screen on each pass.
         """
         while True:
-            # Track user actions (event) with event for loop
-            for event in pygame.event.get():  # list of events
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            # Check game events for quit action.
+            self._check_events()
             
-            # Redraw screen each pass of event loop
-            self.screen.fill(self.settings.bg_color)
-            
-            # Draw ship on top of background after background is ready
-            self.ship.blitme()
-            
-            # Makes most recently drawn screen visible, hides old screens
-            pygame.display.flip()
+            # Update screen on each pass of loop
+            self._update_screen()
             
             # Set game frame rate
             self.clock.tick(60)
+    
+    def _check_events(self):
+        """
+        Responds to keypresses and mouse clicks; checks if quit.
+        """
+        # Track user actions (event) with event for loop
+        for event in pygame.event.get():  # list of events
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        """
+        Updates images on the screen and flips to new screen.
+        """
+        # Fill screen background
+        self.screen.fill(self.settings.bg_color)
+        
+        # Draw ship on top of background after background is ready at 
+        # specific position
+        self.ship.blitme()
+        
+        # Makes most recently drawn screen visible, hides old screens
+        pygame.display.flip()
     
 # Checks if file is called directly or not (ex of not: import as module)
 # If run as main program, execute code block
