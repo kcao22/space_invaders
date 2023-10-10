@@ -20,7 +20,10 @@ class SpaceInvaders:
         self.settings = Settings()
         
         # Set display window. Assign Pygame surface to self.screen
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
+            
         pygame.display.set_caption("Space Invaders")
         
         # Instantiate Pygame clock to maintain frame rate
@@ -74,6 +77,8 @@ class SpaceInvaders:
             self.ship.moving_up = True
         if event.key == pygame.K_DOWN:
             self.ship.moving_down = True
+        if event.key == pygame.K_q:
+            sys.quit()
 
     def _check_keyup_events(self, event):
         """
