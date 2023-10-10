@@ -62,7 +62,7 @@ class SpaceInvaders:
             elif event.type == pygame.KEYUP:
                 self.check_keyup_events(event)
                 
-    def check_keydown_events(self, event):
+    def _check_keydown_events(self, event):
         """
         Responds to key presses accordingly.
         """
@@ -75,7 +75,7 @@ class SpaceInvaders:
         if event.key == pygame.K_DOWN:
             self.ship.moving_down = True
 
-    def check_keyup_events(self, event):
+    def _check_keyup_events(self, event):
         """
         Responds to key releases accordingly. 
         """
