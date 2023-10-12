@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class SpaceInvaders:
     """ 
@@ -31,6 +32,9 @@ class SpaceInvaders:
         
         # Instantiate ship, pass in SpaceInvaders instance as argument.
         self.ship = Ship(self)        
+
+        # Instance variable for grouping bullets
+        self.bullets = pygame.sprite.Group()
         
     def run_game(self):
         """
@@ -41,7 +45,8 @@ class SpaceInvaders:
             # Check game events and respond accordingly to event.
             self._check_events()
             self.ship.update()
-            
+            self.bullets.update()
+
             # Update screen on each pass of loop
             self._update_screen()
             
@@ -79,6 +84,8 @@ class SpaceInvaders:
             self.ship.moving_down = True
         if event.key == pygame.K_q:
             sys.quit()
+        if event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """
@@ -100,12 +107,25 @@ class SpaceInvaders:
         # Fill screen background
         self.screen.fill(self.settings.bg_color)
         
+        # Draw all bullets grouped in sprite list. Draw bullets first to
+        # avoid drawing bullets on top of ship
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+
         # Draw ship on top of background after background is ready at 
         # specific position
         self.ship.blitme()
         
         # Makes most recently drawn screen visible, hides old screens
         pygame.display.flip()
+
+    def _fire_bullet(self):
+        """
+        Creates bullet object and appends to bullet sprite group
+        for tracking.
+        """
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
     
 # Checks if file is called directly or not (ex of not: import as module)
 # If run as main program, execute code block
