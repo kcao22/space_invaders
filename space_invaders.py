@@ -47,6 +47,16 @@ class SpaceInvaders:
             self.ship.update()
             self.bullets.update()
 
+            # Check to see if bullets are out of screen. Delete if true
+            # Create copy to avoid in place changes during loop
+            # Modify original self.bullets list based on copy
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom < 0:
+                    self.bullets.remove(bullet)
+                else:
+                    pass
+            print(len(self.bullets))
+
             # Update screen on each pass of loop
             self._update_screen()
             
