@@ -45,7 +45,7 @@ class SpaceInvaders:
             # Check game events and respond accordingly to event.
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
 
             # Check to see if bullets are out of screen. Delete if true
             # Create copy to avoid in place changes during loop
@@ -110,6 +110,18 @@ class SpaceInvaders:
         if event.key == pygame.K_DOWN:
             self.ship.moving_down = False
 
+    def _update_bullets(self):
+        """
+        Updates bullet positioning and gets rid of bullets out of screen
+        """
+        # Update bullet positioning
+        self.bullets.update()
+        # Draw all bullets grouped in sprite list. Draw bullets first to
+        # avoid drawing bullets on top of ship
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+
+
     def _update_screen(self):
         """
         Updates images on the screen and flips to new screen.
@@ -117,10 +129,6 @@ class SpaceInvaders:
         # Fill screen background
         self.screen.fill(self.settings.bg_color)
         
-        # Draw all bullets grouped in sprite list. Draw bullets first to
-        # avoid drawing bullets on top of ship
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
 
         # Draw ship on top of background after background is ready at 
         # specific position
@@ -134,9 +142,11 @@ class SpaceInvaders:
         Creates bullet object and appends to bullet sprite group
         for tracking.
         """
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
-    
+        if len(self.bullets) < self.settings.bullet_limit:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+        else:
+            pass    
 # Checks if file is called directly or not (ex of not: import as module)
 # If run as main program, execute code block
 if __name__ == "__main__":
