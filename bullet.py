@@ -14,4 +14,11 @@ class Bullet(Sprite):
         self.settings = si_game.settings
         self.color = si_game.settings.bullet_color
 
-        # Create bullet 
+        # Create bullet rectangle
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet.height)
+        # Set bullet position
+        self.rect.midtop = si_game.ship.rect.midtop
+        # Store bullet position for position updating
+        self.y = float(self.rect.y)
+        
+        
