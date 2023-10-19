@@ -12,13 +12,28 @@ class Bullet(Sprite):
         # Set screen attributes
         self.screen = si_game.screen
         self.settings = si_game.settings
-        self.color = si_game.settings.bullet_color
+        self.color = self.settings.bullet_color
 
         # Create bullet rectangle
-        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet.height)
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         # Set bullet position
         self.rect.midtop = si_game.ship.rect.midtop
         # Store bullet position for position updating
         self.y = float(self.rect.y)
         
+    def update(self):
+        """
+        Updates bullet y-axis position on screen.
+        """
+        # Update position tracking instance variable
+        self.y -= self.settings.bullet_speed
+        # Update bullet actual position
+        self.rect.y = self.y
         
+    def draw_bullet(self):
+        """ 
+        Draws bullet to screen.
+        """
+        pygame.draw.rect(self.screen, self.color, self.rect)
+        
+    

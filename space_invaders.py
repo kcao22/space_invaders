@@ -76,9 +76,9 @@ class SpaceInvaders:
             # Allow for continuous action by tracking keydown & keyup
             elif event.type == pygame.KEYDOWN:
                 # If right arrow key, shift ship rectangle 1 unit right
-                self.check_keydown_events(event)
+                self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
-                self.check_keyup_events(event)
+                self._check_keyup_events(event)
 
     def _check_keydown_events(self, event):
         """
@@ -116,10 +116,7 @@ class SpaceInvaders:
         """
         # Update bullet positioning
         self.bullets.update()
-        # Draw all bullets grouped in sprite list. Draw bullets first to
-        # avoid drawing bullets on top of ship
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
+
 
 
     def _update_screen(self):
@@ -128,8 +125,12 @@ class SpaceInvaders:
         """
         # Fill screen background
         self.screen.fill(self.settings.bg_color)
-        
 
+        # Draw all bullets grouped in sprite list. Draw bullets first to
+        # avoid drawing bullets on top of ship
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+        
         # Draw ship on top of background after background is ready at 
         # specific position
         self.ship.blitme()
