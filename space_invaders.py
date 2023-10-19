@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class SpaceInvaders:
     """ 
@@ -35,6 +36,11 @@ class SpaceInvaders:
 
         # Instance variable for grouping bullets
         self.bullets = pygame.sprite.Group()
+
+        # Test alien class
+        self.alien = pygame.sprite.Group()
+        # Create multiple aliens as grouped fleet
+        self._create_fleet()
         
     def run_game(self):
         """
@@ -117,8 +123,6 @@ class SpaceInvaders:
         # Update bullet positioning
         self.bullets.update()
 
-
-
     def _update_screen(self):
         """
         Updates images on the screen and flips to new screen.
@@ -135,6 +139,9 @@ class SpaceInvaders:
         # specific position
         self.ship.blitme()
         
+        # Draw aliens group on screen surface
+        self.aliens.draw(self.screen)
+
         # Makes most recently drawn screen visible, hides old screens
         pygame.display.flip()
 
@@ -147,7 +154,16 @@ class SpaceInvaders:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
         else:
-            pass    
+            pass
+
+    def _create_fleet(self):
+        """
+        Creates a grouped fleet of aliens.
+        """
+        self.aliens.add(Alien(self))
+        
+    
+
 # Checks if file is called directly or not (ex of not: import as module)
 # If run as main program, execute code block
 if __name__ == "__main__":
